@@ -25,16 +25,22 @@ const createContact = asyncHandler(async (req,res) =>{
     }
     if(phone.length<10){
         res.status(400);
-        throw new Error("type a proper phone number");
+        throw new Error("Number should be in 10 digits");
     }
-    for(let i=0;i<phone.length;i++){
+    if (phone.length==10){
+
     
-      if(c>= 48 && c<=57){
+    for(let i=0;i<phone.length;i++){
+        const charCode = phone.charCodeAt(i);
+
+    
+    if(charCode>= 48 && charCode<=57){
         continue;
       }
       else{
-        throw new Error("type a proper phone number");
+        throw new Error("Please type a proper phone number with digits 0-9.");
       }  
+    }
     }
     const contact = await Contact.create({
         name,
